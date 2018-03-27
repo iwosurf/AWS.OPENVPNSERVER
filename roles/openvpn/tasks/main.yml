@@ -1,0 +1,29 @@
+#openvpn Access Server install
+- name: create file
+  file:
+      path: /openvpn
+      state: directory
+      mode: 0644
+
+- name: copy OpenVpn Server
+  copy: src=roles/openvpn/files/openvpn-as-2.5-Ubuntu16.i386.deb dest=/openvpn owner=root group=root mode=0644
+
+- name: install OpenVpn Server
+  apt:
+    deb: /openvpn/openvpn-as-2.5-Ubuntu16.i386.deb
+
+- name: Set password for openvpn user
+  user:
+    name: openvpn
+    createhome: no
+    home: /home/openvpn
+    shell: /sbin/nologin
+    password: "{{ openvpn_as_password }}"
+    update_password: always
+    system: yes
+    state: present
+
+- name: configure OpenVpn server
+  template:
+    src: config.json.j2
+    dest: /usr/local/openvpn_as/etc/config.json

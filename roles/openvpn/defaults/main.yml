@@ -1,0 +1,17 @@
+---
+
+# default file for openvpn_as
+
+openvpn_as_password: start123
+
+openvpn_as_admin_ui_https_ip_address: "{{ ansible_default_ipv4.interface }}"
+openvpn_as_admin_ui_https_ip_port: 943
+
+openvpn_as_connect: true
+
+openvpn_as_cs_admin_only: false
+openvpn_as_cs_auto_generate: true
+openvpn_as_cs_https_ip_adress: { ansible_default_ipv4.address}
+openvpn_as_cs_https_port: 943
+openvpn_as_cs_ssl_reneg: false
+openvpn_as_cs_tls_version_min: 1.0
