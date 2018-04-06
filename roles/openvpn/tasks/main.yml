@@ -20,6 +20,11 @@
   tags:
     - configuration
 
+- name: Install easy-rsa package
+  apt: name=easy-rsa
+  when: openvpn_use_system_easyrsa
+
+
 - name: Allow masqueraded IPv4 openvpn traffic through firewall
   blockinfile:
     path: /etc/ufw/before.rules
