@@ -24,6 +24,7 @@
   apt: name=easy-rsa
   when: openvpn_use_system_easyrsa
 
+- include: configure.yml
 
 - name: Allow masqueraded IPv4 openvpn traffic through firewall
   blockinfile:
