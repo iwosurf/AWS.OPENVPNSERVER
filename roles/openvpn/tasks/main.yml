@@ -1,29 +1,38 @@
 #openvpn Access Server install
-- name: create file
-  file:
-      path: /openvpn
-      state: directory
-      mode: 0644
-
-- name: copy OpenVpn Server
-  copy: src=roles/openvpn/files/openvpn-as-2.5-Ubuntu16.i386.deb dest=/openvpn owner=root group=root mode=0644
-
-- name: install OpenVpn Server
+- name: Install openvpn
   apt:
-    deb: /openvpn/openvpn-as-2.5-Ubuntu16.i386.deb
-
-- name: Set password for openvpn user
-  user:
-    name: openvpn
-    createhome: no
-    home: /home/openvpn
-    shell: /sbin/nologin
-    password: "{{ openvpn_as_password }}"
-    update_password: always
-    system: yes
+    name: "{{ item }}"
+    install-recommends: no
     state: present
+  with_items:
+    - openvpn
+    - ufw
 
-- name: configure OpenVpn server
+- name: Apply / deploy openvpn template
   template:
-    src: config.json.j2
-    dest: /usr/local/openvpn_as/etc/config.json
+    src: "{{ item.src }}"
+    dest: /etc/openvpn/{{ item.dest }}
+  notify:
+    - reload openvpn
+  with_items:
+    - src: server.conf.j2
+      dest: server.conf
+  tags:
+    - configuration
+
+- name: Allow masqueraded IPv4 openvpn traffic through firewall
+  blockinfile:
+    path: /etc/ufw/before.rules
+    insertbefore: "^# Don't delete these required lines, otherwise there will be errors$"
+    marker: "# {mark} ANSIBLE MANAGED OPENVPN BLOCK"
+    block: |
+      # nat Table rules
+      *nat
+      :POSTROUTING ACCEPT [0:0]
+      # Allow forwarding traffic from OpenVPN to {{ openvpn_interface }}
+      -A POSTROUTING -s 10.10.10.0/24 -o {{ openvpn_interface }} -j MASQUERADE
+      COMMIT
+  notify:
+    - reload ufw
+  tags:
+    - ufw

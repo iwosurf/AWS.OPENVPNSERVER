@@ -1,0 +1,10 @@
+---
+
+- name: reload openvpn
+  service:
+    name: openvpn
+    state: reloaded
+
+- name: reload ufw
+  ufw: state=reloaded
+  ignore_errors: yes
