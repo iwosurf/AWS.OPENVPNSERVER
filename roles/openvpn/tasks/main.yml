@@ -36,3 +36,31 @@
     - reload ufw
   tags:
     - ufw
+
+- name: Allow forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+  tags:
+    - network
+
+- name: Allow ufw forwarding by default
+  lineinfile:
+    path: /etc/default/ufw
+    regexp: "^DEFAULT_FORWARD_POLICY="
+    line: 'DEFAULT_FORWARD_POLICY="ACCEPT"'
+  notify:
+    - reload ufw
+  tags:
+    - ufw
+
+- name: Allow openvpn through firewall
+  ufw:
+    rule: allow
+    proto: "{{ openvpn_proto }}"
+    port: "{{ openvpn_port }}"
+  notify:
+    - reload ufw
+  tags:
+    - ufw
