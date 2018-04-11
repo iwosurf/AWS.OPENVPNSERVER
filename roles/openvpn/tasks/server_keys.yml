@@ -4,9 +4,12 @@
     state: directory
 
 - name: Copy openssl server/ca extensions
-  file:
+  copy:
     src: "{{item}}"
     dest: "{{openvpn_key_dir}}"
+    owner: root
+    group: root
+    mode: 0400
   with_items:
     - openssl-server.ext
     - openssl-ca.ext
