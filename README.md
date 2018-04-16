@@ -19,7 +19,7 @@ openvpn_fetch_config_dir: /tmp/ansible
 ```
 
 Change server ip/subnet
-```javascript
+```
 # OpenVpn Server IP
 openvpn_server_ip: 10.10.10.1
 openvpn_server_subnet: 255.255.255.0
