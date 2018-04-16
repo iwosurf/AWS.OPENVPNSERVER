@@ -18,15 +18,14 @@ openvpn_verify_cn: false
 openvpn_fetch_config_dir: /tmp/ansible
 ```
 
+change server ip/subnet
 ```javascript
 # OpenVpn Server IP
 openvpn_server_ip: 10.10.10.1
 openvpn_server_subnet: 255.255.255.0
 ```
 
-# Install settings
-openvpn_use_system_easyrsa: false
-
+change client: User1, User2, User3 .....
 ```javascript
 # Default settings certificates
 openvpn_etcdir: /etc/openvpn
