@@ -37,7 +37,7 @@
       *nat
       :POSTROUTING ACCEPT [0:0]
       # Allow forwarding traffic from OpenVPN to {{ openvpn_interface }}
-      -A POSTROUTING -s 10.10.10.0/24 -o {{ openvpn_interface }} -j MASQUERADE
+      -A POSTROUTING -s {{ openvpn_postroting_server_ip_subnet }} -o {{ openvpn_interface }} -j MASQUERADE
       COMMIT
   notify:
     - reload ufw

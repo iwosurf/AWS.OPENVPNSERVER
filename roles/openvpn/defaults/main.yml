@@ -14,6 +14,7 @@ openvpn_fetch_config_dir: /tmp/ansible
 
 # OpenVpn Server IP
 openvpn_server_ip: 100.100.100.0
+openvpn_postroting_server_ip_subnet: 100.100.100.0/24
 openvpn_server_subnet: 255.255.255.0
 
 
