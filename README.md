@@ -22,6 +22,7 @@ Change server ip/subnet
 ```
 # OpenVpn Server IP
 openvpn_server_ip: 10.10.10.1
+openvpn_postroting_server_ip_subnet: 10.10.10.1/24
 openvpn_server_subnet: 255.255.255.0
 ```
 
