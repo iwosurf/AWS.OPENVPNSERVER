@@ -9,7 +9,7 @@ tls-version-min 1.2
 {% endif %}
 
 proto {{openvpn_proto}}
-remote {{openvpn_server_hostname}} {{openvpn_port}}
+remote {{openvpn_external_ip}} {{openvpn_port}}
 dev tun
 
 resolv-retry {{ openvpn_resolv_retry }}

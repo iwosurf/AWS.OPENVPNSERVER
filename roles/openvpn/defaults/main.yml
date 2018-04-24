@@ -13,6 +13,7 @@ openvpn_verify_cn: false
 openvpn_fetch_config_dir: /tmp/ansible
 
 # OpenVpn Server IP
+openvpn_external_ip: 80.72.12.23
 openvpn_server_ip: 100.100.100.0
 openvpn_postroting_server_ip_subnet: 100.100.100.0/24
 openvpn_server_subnet: 255.255.255.0
